@@ -1,4 +1,4 @@
-"# Stock Market Price Predictor
+# Stock Market Price Predictor
 
 An end-to-end machine learning web application for forecasting stock market closing prices using LSTM neural networks. This project combines historical stock data collection, time-series preprocessing, deep learning prediction, and an interactive Streamlit dashboard to visualize trends and model results.
 
