@@ -128,18 +128,29 @@ def compute_indicators(df):
     
     # Model Input Ratios
     data['Return'] = data['Close'].pct_change()
-    data['HL_Spread'] = (data['High'] - data['Low']) / data['Close']
+    if 'High' in data.columns and 'Low' in data.columns:
+        data['HL_Spread'] = (data['High'] - data['Low']) / data['Close']
+    else:
+        data['HL_Spread'] = 0.01
     data['MA10_Ratio'] = data['Close'] / data['Close'].rolling(10).mean() - 1.0
     data['MA20_Ratio'] = data['Close'] / data['MA20'] - 1.0
     data['MA50_Ratio'] = data['Close'] / data['MA50'] - 1.0
     data['RSI_Scaled'] = data['RSI'] / 100.0 - 0.5
     data['MACD_Ratio'] = data['MACD'] / data['Close']
-    data['Vol_Change'] = data['Volume'].pct_change().clip(-1.0, 3.0)
+    if 'Volume' in data.columns:
+        data['Vol_Change'] = data['Volume'].pct_change().clip(-1.0, 3.0)
+    else:
+        data['Vol_Change'] = 0.0
     
     return data
 
 def forecast_future(model, scaler, recent_df, feature_cols, forecast_days=14, seq_len=30):
     curr_df = recent_df.copy()
+    for col in ['Open', 'High', 'Low', 'Close']:
+        if col not in curr_df.columns:
+            curr_df[col] = curr_df['Close'] if 'Close' in curr_df.columns else 100.0
+    if 'Volume' not in curr_df.columns:
+        curr_df['Volume'] = 1000000
     future_predictions = []
     last_date = curr_df.index[-1]
     
@@ -369,7 +380,7 @@ with tab3:
     if model is None or scaler is None:
         st.warning("Pre-trained model or scaler not loaded.")
     else:
-        recent_clean = df[feature_cols + ['Close', 'Volume']].dropna()
+        recent_clean = df.dropna()
         if len(recent_clean) >= 30:
             forecast_df = forecast_future(model, scaler, recent_clean, feature_cols, forecast_days=forecast_days, seq_len=30)
             

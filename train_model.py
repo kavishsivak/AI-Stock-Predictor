@@ -21,17 +21,20 @@ def prepare_data(symbol='GOOG', start='2012-01-01', end='2022-12-21', seq_len=30
         close = raw['Close'][symbol] if symbol in raw['Close'] else raw['Close'].iloc[:, 0]
         high = raw['High'][symbol] if symbol in raw['High'] else raw['High'].iloc[:, 0]
         low = raw['Low'][symbol] if symbol in raw['Low'] else raw['Low'].iloc[:, 0]
+        open_p = raw['Open'][symbol] if symbol in raw['Open'] else raw['Open'].iloc[:, 0]
         volume = raw['Volume'][symbol] if symbol in raw['Volume'] else raw['Volume'].iloc[:, 0]
     else:
         close = raw['Close']
         high = raw['High']
         low = raw['Low']
+        open_p = raw['Open']
         volume = raw['Volume']
         
     df = pd.DataFrame(index=raw.index)
-    df['Close'] = close
+    df['Open'] = open_p
     df['High'] = high
     df['Low'] = low
+    df['Close'] = close
     df['Volume'] = volume
     
     # 1. Stationary relative returns
