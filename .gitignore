@@ -1,0 +1,22 @@
+# Python virtual environment
+venv/
+env/
+ENV/
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# IDE / Editor configs
+.vscode/
+.idea/
+.qodo/
+
+# Backup files
+*_original.keras
+*.bak
+*.tmp

@@ -1,0 +1,36 @@
+{
+    "symbol": "GOOG",
+    "records_total": 2712,
+    "records_train": 2145,
+    "records_test": 537,
+    "sequence_length": 30,
+    "features": [
+        "Return",
+        "HL_Spread",
+        "MA10_Ratio",
+        "MA20_Ratio",
+        "MA50_Ratio",
+        "RSI",
+        "MACD_Ratio",
+        "Vol_Change"
+    ],
+    "lstm": {
+        "mae": 1.6524,
+        "rmse": 2.274,
+        "mape": 1.44,
+        "r2": 0.9855,
+        "directional_accuracy": 51.21
+    },
+    "naive_baseline": {
+        "mae": 1.6444,
+        "rmse": 2.263,
+        "mape": 1.43,
+        "r2": 0.9857
+    },
+    "ma20_baseline": {
+        "mae": 3.9252,
+        "rmse": 4.8334,
+        "mape": 3.44,
+        "r2": 0.9346
+    }
+}
